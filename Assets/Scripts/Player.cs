@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && isUp == false)
         {
             rb.velocity += Vector3.up * speed;
+            //some git shit
         }
         else
         {
