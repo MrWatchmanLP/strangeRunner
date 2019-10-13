@@ -2,11 +2,22 @@
 
 public class Ground : MonoBehaviour
 {
+    public float multiplier = 1;
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Player")
-        {
-            collision.transform.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, Player.speed);
-        }
+        Physics.gravity = Vector3.zero;
+        ScoreManager.AddScore();
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        Player.grounded = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Player.grounded = false;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }
