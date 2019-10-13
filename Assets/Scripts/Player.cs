@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -7,14 +8,22 @@ public class Player : MonoBehaviour
     public static float speed;
     public static bool grounded = true;
     public static float score = -10;
-    public float highscore;
     public float step = 50;
     public static Vector3 MyGravity;
     public static int counter = 0;
     public static bool alive = true;
+    public AudioClip hurt;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI distanceText;
+    public GameObject gameOverScreen;
+    public GameObject gameScreen;
 
     void Start()
     {
+        Physics.gravity = new Vector3(0f, -9.47f, 0f);
+        score = -10;
+        alive = true;
         rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.forward;
         Physics.gravity *= 40;
@@ -39,7 +48,13 @@ public class Player : MonoBehaviour
                 }
                 counter++;
             }
+            distanceText.text = "Distance: " + ((int)transform.position.z).ToString();
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void Die()
@@ -47,7 +62,19 @@ public class Player : MonoBehaviour
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         alive = false;
-        //gameLogic
-        Debug.Log("lose");
+        if((int)score > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", (int)score);
+            scoreText.text = "Your score: " + PlayerPrefs.GetInt("HighScore").ToString();
+            highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("HighScore").ToString();
+        }
+        else
+        {
+            scoreText.text = "Your score: " + score.ToString();
+            highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("HighScore").ToString();
+        }
+        AudioManager.PlaySound(hurt);
+        gameScreen.SetActive(false);
+        gameOverScreen.SetActive(true);
     }
 }

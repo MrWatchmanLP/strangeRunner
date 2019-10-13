@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28ff2ff83db89147b0623b7f6e1fa8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurt: {fileID: 0}
 --- !u!1 &5850595688639511233
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
+  ground: {fileID: 8300000, guid: 8d3abc3d009e7c14685fd08dcbc83aed, type: 3}
+  jump: {fileID: 8300000, guid: 920d3ad279383f143a051786d23f3440, type: 3}
 --- !u!1 &8837843999473306696
 GameObject:
   m_ObjectHideFlags: 0
