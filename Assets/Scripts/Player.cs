@@ -15,9 +15,12 @@ public class Player : MonoBehaviour
     public AudioClip hurt;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI distanceScoreText;
+    public TextMeshProUGUI distancehighScoreText;
     public TextMeshProUGUI distanceText;
     public GameObject gameOverScreen;
     public GameObject gameScreen;
+    public Transform particles;
 
     void Start()
     {
@@ -73,7 +76,21 @@ public class Player : MonoBehaviour
             scoreText.text = "Your score: " + score.ToString();
             highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("HighScore").ToString();
         }
+        if ((int)transform.position.z > PlayerPrefs.GetInt("HighDistance"))
+        {
+            PlayerPrefs.SetInt("HighDistance", (int)transform.position.z);
+            distanceScoreText.text = "Your distance: " + PlayerPrefs.GetInt("HighDistance").ToString();
+            distancehighScoreText.text = "Highscore distance: " + PlayerPrefs.GetInt("HighDistance").ToString();
+        }
+        else
+        {
+            distanceScoreText.text = "Your distance: " + ((int)transform.position.z).ToString();
+            distancehighScoreText.text = "HighDistance: " + PlayerPrefs.GetInt("HighDistance").ToString();
+        }
+        AudioManager.IncreasePitch(-1f);
         AudioManager.PlaySound(hurt);
+        Instantiate(particles, transform.position, Quaternion.identity, this.transform);
+        GetComponent<MeshRenderer>().material.color = Color.red;
         gameScreen.SetActive(false);
         gameOverScreen.SetActive(true);
     }

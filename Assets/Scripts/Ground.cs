@@ -10,6 +10,7 @@ public class Ground : MonoBehaviour
     {
         Physics.gravity = Vector3.zero;
         ScoreManager.AddScore();
+        AudioManager.IncreasePitch();
         AudioManager.PlaySound(ground);
     }
 
