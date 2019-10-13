@@ -2300,6 +2300,8 @@ MonoBehaviour:
   distanceText: {fileID: 1334664735}
   gameOverScreen: {fileID: 548342444}
   gameScreen: {fileID: 1254601165}
+  particles: {fileID: 1348698859673121557, guid: a56d8f2545afbb44680807872ca0f3b1,
+    type: 3}
 --- !u!54 &1931821979
 Rigidbody:
   m_ObjectHideFlags: 0
